@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List - Task Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Todo List Application</h1>
+            <p class="subtitle">Task Management System with Tags & Priority</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tasks">Tasks</a></li>
+                <li><a href="/users">Users</a></li>
+                <li><a href="/tags">Tags</a></li>
+                <li><a href="/reports">Reports</a></li>
+            </ul>
+        </nav>
+
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingTasks">0</div>
+                <div class="stat-label">Pending Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Welcome to Todo List Application</div>
+            <p>This is a comprehensive task management system that helps you organize your tasks efficiently.</p>
+            <br>
+            <h3>Features:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li>✅ Create, update, and delete tasks</li>
+                <li>🏷️ Categorize tasks with tags</li>
+                <li>⚡ Assign priority levels (Low, Medium, High)</li>
+                <li>📊 Track task status (Pending, In Progress, Completed)</li>
+                <li>👥 Manage multiple users</li>
+                <li>🔍 Search and filter tasks by tag, priority, or status</li>
+                <li>📈 View reports and statistics</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="/tasks"><button class="btn btn-primary">Manage Tasks</button></a>
+                <a href="/users"><button class="btn btn-success">Manage Users</button></a>
+                <a href="/tags"><button class="btn btn-info">Manage Tags</button></a>
+                <a href="/reports"><button class="btn btn-warning">View Reports</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load statistics
+        async function loadStatistics() {
+            try {
+                // Fetch all tasks
+                const tasksResponse = await fetch('/api/tasks');
+                const tasks = await tasksResponse.json();
+                
+                // Fetch all users
+                const usersResponse = await fetch('/api/users');
+                const users = await usersResponse.json();
+                
+                // Calculate statistics
+                document.getElementById('totalTasks').textContent = tasks.length;
+                document.getElementById('pendingTasks').textContent = 
+                    tasks.filter(t => t.status === 'PENDING').length;
+                document.getElementById('completedTasks').textContent = 
+                    tasks.filter(t => t.status === 'COMPLETED').length;
+                document.getElementById('totalUsers').textContent = users.length;
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+            }
+        }
+
+        // Load statistics on page load
+        window.addEventListener('DOMContentLoaded', loadStatistics);
+    </script>
+</body>
+</html>
+

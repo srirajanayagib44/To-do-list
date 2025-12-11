@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Todo List</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👥 Manage Users</h1>
+            <p class="subtitle">Create and manage user accounts</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tasks">Tasks</a></li>
+                <li><a href="/users">Users</a></li>
+                <li><a href="/tags">Tags</a></li>
+                <li><a href="/reports">Reports</a></li>
+            </ul>
+        </nav>
+
+        <div id="alertContainer"></div>
+
+        <!-- Create User Form -->
+        <div class="form-section">
+            <h2>Create New User</h2>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" required maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number:</label>
+                    <input type="text" id="contact" maxlength="20">
+                </div>
+                <button type="submit" class="btn btn-primary">Create User</button>
+                <button type="button" class="btn btn-warning" onclick="resetUserForm()">Reset</button>
+            </form>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card">
+            <div class="card-header">All Users</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Join Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr>
+                        <td colspan="6" class="loading">Loading users...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/users.js"></script>
+</body>
+</html>
+
